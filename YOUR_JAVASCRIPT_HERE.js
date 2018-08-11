@@ -19,8 +19,8 @@ function rest(character) {
 
 //this function runs when image of weapon is clicked. 
 function pickUpItem(character, weaponName) {
-    //for the purpose of the game, I changed the push() method to unshift(), so that the stronger weapon is equipped when fighting enemies.
-    character.inventory.unshift(weaponName)
+    //I am aware that for the purpose of fighting enemies, the push() method should be changed to unshift(), so that the stronger weapon is equipped when fighting enemies.
+    character.inventory.push(weaponName)
     document.getElementById("dagger").className = "done" 
     displayStats()
     cleanUp()
@@ -127,6 +127,7 @@ let enemyList = [
     }
 ]
 
+//removes elements with class 'done'.
 function cleanUp() {
     var done = document.getElementsByClassName("done")
 
