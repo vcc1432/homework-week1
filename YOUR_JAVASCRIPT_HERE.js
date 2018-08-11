@@ -3,18 +3,17 @@ let hero = {
     name: "Ezio",
     heroic: true,
     inventory: [],
-    health: 1,
+    health: 10,
     weapon: {
         type: "blade",
-        damage: 1
+        damage: 2
     }
 }
 
-
 function rest(object) {
     object.health = 10
-    
     displayStats()
+    return object
 }
 
 function pickUpItem(character, object) {
@@ -49,8 +48,8 @@ function displayStats() {
 
 function submitName(event) {
     event.preventDefault()
-    var inputField = document.getElementById("newName")
-    var chosenName = inputField.value
+    let inputField = document.getElementById("newName")
+    let chosenName = inputField.value
 
     createName(chosenName)
     
@@ -59,7 +58,32 @@ function submitName(event) {
     function createName(name) {
         hero.name = name
     }
-
     displayStats()
-
 }
+
+function showEnemy() {
+    let enemyList = ['enemies/enemy1.png','enemies/enemy2.png','enemies/enemy3.png']
+    let randomNumber = Math.floor(Math.random() * enemyList.length)
+    let randomEnemy = enemyList[randomNumber]
+
+    document.getElementById('enemy').setAttribute("src", randomEnemy)
+    console.log(document.getElementById("enemy"))
+    document.getElementById('enemy').style.display = "block"
+}
+
+function fightEnemy(statistics) {
+    if (hero.weapon.damage < enemyStats.weapon.damage) {
+        console.log("enemy wins!")
+    } else {
+        console.log(`${hero.name} wins!`)
+    }
+}
+
+let enemyStats = {
+    health: 5,
+    weapon: {
+        type: "sword",
+        damage: 1
+    }
+}
+

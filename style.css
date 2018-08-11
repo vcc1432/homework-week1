@@ -4,3 +4,8 @@ img {
     border: 1px solid black;
     margin: 10px;
 }
+
+#enemy {
+    display: none;
+    object-fit: scale-down;
+}
