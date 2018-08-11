@@ -2,7 +2,16 @@
 let hero = {
     name: "name",
     heroic: true,
-    inventory: [],
+    inventory: [
+        {
+            type: "arrow",
+            damage: 1
+        },
+        {
+            type: "spear",
+            damage: 5
+        }
+    ],
     health: 10,
     weapon: {
         type: "blade",
@@ -10,17 +19,14 @@ let hero = {
     }
 }
 
-function rest(hero) {
-    console.log('hero rested')
-    hero.health = 10
-    console.log('health added')
-    return hero
-    
+
+function rest(object) {
+    object.health = 10
+    return object
 }
 
-function pickUpItem(hero, object) {
-    hero.inventory.push(object)
-    console.log(hero.inventory)
+function pickUpItem(character, object) {
+    character.inventory.push(object) 
 }
 
 let dagger = {
@@ -28,6 +34,11 @@ let dagger = {
     damage: 2
 }
 
-function equipWeapon(hero) {
-
+function equipWeapon(character) {
+        
+    if (character.inventory.length <= 0) {
+        return;
+    } else {
+        character.weapon = character.inventory[0]
+    }
 }
