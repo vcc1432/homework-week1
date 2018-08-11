@@ -11,15 +11,16 @@ let hero = {
 }
 
 //Sets health of the object by clicking on the inn-image.
-function rest(object) {
-    object.health = 10
+function rest(character) {
+    character.health = 10
     displayStats()
-    return object
+    return character
 }
 
 //this function runs when image of weapon is clicked. 
-function pickUpItem(character, object) {
-    character.inventory.push(object)
+function pickUpItem(character, weaponName) {
+    //for the purpose of the game, I changed the push() method to unshift(), so that the stronger weapon is equipped when fighting enemies.
+    character.inventory.unshift(weaponName)
     document.getElementById("dagger").className = "done" 
     displayStats()
     cleanUp()
@@ -52,7 +53,7 @@ function displayStats() {
     Weapondamage: ${hero.weapon.damage}`
 }
 
-//
+//Lets the user give the hero a different name.
 function submitName(event) {
     event.preventDefault()
     let inputField = document.getElementById("newName")
@@ -68,32 +69,63 @@ function submitName(event) {
     displayStats()
 }
 
+//When button is clicked, random enemy is shown.
 function showEnemy() {
-    let enemyList = ['enemies/enemy1.png','enemies/enemy2.png','enemies/enemy3.png']
-    let randomNumber = Math.floor(Math.random() * enemyList.length)
-    let randomEnemy = enemyList[randomNumber]
+    let randomEnemy = document.getElementsByClassName("enemy")
+    let randomNumber = Math.floor(Math.random() * randomEnemy.length)
+    
 
-    document.getElementById('enemy').setAttribute("src", randomEnemy)
-    console.log(document.getElementById("enemy"))
-    document.getElementById('enemy').style.display = "block"
+    for(let enemyIndex = 0; enemyIndex < randomEnemy.length; enemyIndex++) {
+        randomEnemy[enemyIndex].style.display = 'none'
+    }
+    
+    randomEnemy[randomNumber].style.display = 'block'
 }
 
-function fightEnemy() {
-    let enemyDamage = Math.floor(Math.random() * 4)
-    
-    if (hero.weapon.damage < enemyDamage) {
-        document.getElementById('outcome').innerHTML = `Enemy wins, ${hero.name}'s health is 0. Go to the Inn to restore health.`
-        hero.health = 0
-        displayStats()
-        document.getElementById("enemy").className = "done" 
-        cleanUp()     
-    } else if (hero.weapon.damage === enemyDamage) {
-        document.getElementById('outcome').innerHTML = "keep on fighting!"
-    } else {
-        displayStats()
-        document.getElementById('outcome').innerHTML = `${hero.name} defeats enemy and wins his weapon!` 
+//When image is clicked, the enemy's damage is compared to the hero's strength. If hero's health is lower than 8, he cannot fight. 
+function fightEnemy(character, nemesis) {
+
+    let outcome = document.getElementById('outcome')
+
+    if (character.health > 8) {    
+        if (character.weapon.damage < nemesis.weapon.damage) {
+            outcome.innerHTML = `Enemy wins, ${character.name}'s health is 0. Go to the Inn to restore health.`
+
+            character.health = 0
+            displayStats()        
+        } else if (character.weapon.damage === nemesis.weapon.damage) {
+            outcome.innerHTML = "It's a tie, try another enemy!"
+        } else {
+            outcome.innerHTML = `${character.name} defeats the enemy and wins his weapon!` 
+        
+            character.inventory.push(nemesis.weapon)
+            displayStats()
+            } 
+        } else {
+            return
     }
 }
+
+let enemyList = [
+    {
+        weapon: {
+            type: "sword",
+            damage: 3
+    }
+    },
+    {
+        weapon: {
+            type: "spear",
+            damage: 2
+        }
+    },
+    {
+        weapon: {
+            type: "bow and arrow",
+            damage: 1
+        }
+    }
+]
 
 function cleanUp() {
     var done = document.getElementsByClassName("done")
@@ -103,3 +135,4 @@ function cleanUp() {
     }
     
 }
+
