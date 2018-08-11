@@ -1,6 +1,6 @@
 // Write your JS here
 let hero = {
-    name: "Altair",
+    name: "name",
     heroic: true,
     inventory: [],
     health: 10,
@@ -11,14 +11,23 @@ let hero = {
 }
 
 function rest(hero) {
+    console.log('hero rested')
     hero.health = 10
+    console.log('health added')
     return hero
+    
 }
 
-function pickUpItem() {
-
+function pickUpItem(hero, object) {
+    hero.inventory.push(object)
+    console.log(hero.inventory)
 }
 
-function equipWeapon() {
+let dagger = {
+    type: "dagger",
+    damage: 2
+}
+
+function equipWeapon(hero) {
 
 }
