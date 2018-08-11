@@ -1,32 +1,29 @@
 // Write your JS here
 let hero = {
-    name: "name",
+    name: "Ezio",
     heroic: true,
-    inventory: [
-        {
-            type: "arrow",
-            damage: 1
-        },
-        {
-            type: "spear",
-            damage: 5
-        }
-    ],
-    health: 10,
+    inventory: [],
+    health: 1,
     weapon: {
         type: "blade",
-        damage: 2
+        damage: 1
     }
 }
 
+console.log(hero)
 
 function rest(object) {
     object.health = 10
+    console.log(hero)
     return object
+
+    
 }
 
 function pickUpItem(character, object) {
     character.inventory.push(object) 
+
+    console.log(hero)
 }
 
 let dagger = {
@@ -41,4 +38,6 @@ function equipWeapon(character) {
     } else {
         character.weapon = character.inventory[0]
     }
+
+console.log(hero)
 }
