@@ -17,9 +17,11 @@ function rest(object) {
 }
 
 function pickUpItem(character, object) {
-    character.inventory.push(object) 
-
+    character.inventory.push(object)
+    document.getElementById("dagger").className = "done"; 
+    console.log(document.getElementById("dagger"))
     displayStats()
+    cleanUp()
 }
 
 let dagger = {
@@ -87,3 +89,11 @@ let enemyStats = {
     }
 }
 
+function cleanUp() {
+    var done = document.getElementsByClassName("done");
+
+    for (let doneIndex= 0; doneIndex < done.length; doneIndex++) {
+        done[doneIndex].remove()
+    }
+    
+}
