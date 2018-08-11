@@ -10,28 +10,31 @@ let hero = {
     }
 }
 
+//Sets health of the object by clicking on the inn-image.
 function rest(object) {
     object.health = 10
     displayStats()
     return object
 }
 
+//this function runs when image of weapon is clicked. 
 function pickUpItem(character, object) {
     character.inventory.push(object)
-    document.getElementById("dagger").className = "done"; 
-    console.log(document.getElementById("dagger"))
+    document.getElementById("dagger").className = "done" 
     displayStats()
     cleanUp()
 }
 
+//this is the object 'dagger' that will be the second argument in the pickUpItem() function.
 let dagger = {
     type: "dagger",
     damage: 2
 }
 
+//This function will run when bag-image is clicked. Reassigns weapon to the first position in the inventory. 
 function equipWeapon(character) {      
     if (character.inventory.length <= 0) {
-        return;
+        return
     } else {
         character.weapon = character.inventory[0]
     }
@@ -39,6 +42,7 @@ function equipWeapon(character) {
     displayStats()
 }
 
+//Displays the hero's statistics to the page, and is called every time these stats change.
 function displayStats() {   
     let heroStats = document.getElementById("stats")
     heroStats.innerHTML = 
@@ -48,6 +52,7 @@ function displayStats() {
     Weapondamage: ${hero.weapon.damage}`
 }
 
+//
 function submitName(event) {
     event.preventDefault()
     let inputField = document.getElementById("newName")
@@ -55,7 +60,7 @@ function submitName(event) {
 
     createName(chosenName)
     
-    inputField.value = null;
+    inputField.value = null
 
     function createName(name) {
         hero.name = name
@@ -73,24 +78,25 @@ function showEnemy() {
     document.getElementById('enemy').style.display = "block"
 }
 
-function fightEnemy(statistics) {
-    if (hero.weapon.damage < enemyStats.weapon.damage) {
-        console.log("enemy wins!")
+function fightEnemy() {
+    let enemyDamage = Math.floor(Math.random() * 4)
+    
+    if (hero.weapon.damage < enemyDamage) {
+        document.getElementById('outcome').innerHTML = `Enemy wins, ${hero.name}'s health is 0. Go to the Inn to restore health.`
+        hero.health = 0
+        displayStats()
+        document.getElementById("enemy").className = "done" 
+        cleanUp()     
+    } else if (hero.weapon.damage === enemyDamage) {
+        document.getElementById('outcome').innerHTML = "keep on fighting!"
     } else {
-        console.log(`${hero.name} wins!`)
-    }
-}
-
-let enemyStats = {
-    health: 5,
-    weapon: {
-        type: "sword",
-        damage: 1
+        displayStats()
+        document.getElementById('outcome').innerHTML = `${hero.name} defeats enemy and wins his weapon!` 
     }
 }
 
 function cleanUp() {
-    var done = document.getElementsByClassName("done");
+    var done = document.getElementsByClassName("done")
 
     for (let doneIndex= 0; doneIndex < done.length; doneIndex++) {
         done[doneIndex].remove()
