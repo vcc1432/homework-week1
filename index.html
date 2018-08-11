@@ -5,14 +5,23 @@
     <link href="https://unpkg.com/mocha@4.0.1/mocha.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 </head>
-<body>
+<body onload="displayStats()">
 
 
   <!-- YOUR HTML HERE -->
-  <img id="inn" onclick="rest(hero)" src="https://c1.staticflickr.com/6/5545/11945702236_bb5fc42a94_b.jpg">
-  <img id="dagger" onclick="pickUpItem(hero, dagger)" src="https://img00.deviantart.net/4e7b/i/2015/256/7/4/dagger_by_gloriagypsy-d99gsrl.png">
-  <img id="bag" onclick="equipWeapon(hero)" src="https://cdn.pixabay.com/photo/2017/09/05/11/31/bag-2717331_960_720.jpg">
+  <h1>Hero stats:</h1>
+    <p id="stats"></p>
 
+    <form onsubmit="submitName(event)">
+      Give the hero a new name:<br>
+      <input type="text" id="newName" placeholder="Name">
+      <input type="submit"value="Submit">
+    </form>
+
+    <img id="inn" onclick="rest(hero)" src="https://c1.staticflickr.com/6/5545/11945702236_bb5fc42a94_b.jpg">
+    <img id="dagger" onclick="pickUpItem(hero, dagger)" src="https://img00.deviantart.net/4e7b/i/2015/256/7/4/dagger_by_gloriagypsy-d99gsrl.png">
+    <img id="bag" onclick="equipWeapon(hero)" src="https://cdn.pixabay.com/photo/2017/09/05/11/31/bag-2717331_960_720.jpg">
+ 
 
   <!-- I RECOMMEND YOU LEAVE THE REST UNTOUCHED -->
   <button onclick="mocha.checkLeaks(); mocha.run();">Run the tests!</button>
